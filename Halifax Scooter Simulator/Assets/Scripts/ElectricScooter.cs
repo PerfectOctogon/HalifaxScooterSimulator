@@ -55,11 +55,11 @@ public class ElectricScooter : MonoBehaviour
 
     void UpdateWheelPositions(WheelCollider wc, Transform t)
     {
-        Vector3 pos = t.localPosition;
+        Vector3 pos = t.position;
         Quaternion rot = t.rotation;
         
         wc.GetWorldPose(out pos, out rot);
         t.position = pos;
-        t.localRotation = rot;
+        t.rotation = rot;
     }
 }
