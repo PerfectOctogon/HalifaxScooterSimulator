@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -8,6 +9,8 @@ public class ElectricScooter : MonoBehaviour
     public WheelCollider frontCollider, rearCollider;
 
     public Transform frontWheel, backWheel;
+
+    public Transform handle;
 
     public float steeringAngle = 60;
 
@@ -51,6 +54,11 @@ public class ElectricScooter : MonoBehaviour
     {
         steering = steeringAngle * horizontal;
         frontCollider.steerAngle = steering;
+        /*Quaternion handleRotation = handle.rotation;
+        Vector3 handlePosition = handle.position;
+        frontCollider.GetWorldPose(out handlePosition, out handleRotation);
+        //handle.position = handlePosition;
+        handle.rotation = handleRotation;*/
     }
 
     void UpdateWheelPositions(WheelCollider wc, Transform t)
