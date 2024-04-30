@@ -1573,15 +1573,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 284675116973043738, guid: e68048b9d5a9497528d35131ea185f03, type: 3}
       propertyPath: motorPower
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 284675116973043738, guid: e68048b9d5a9497528d35131ea185f03, type: 3}
       propertyPath: slantFactor
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 284675116973043738, guid: e68048b9d5a9497528d35131ea185f03, type: 3}
       propertyPath: steeringAngle
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 284675116973043738, guid: e68048b9d5a9497528d35131ea185f03, type: 3}
       propertyPath: rotationThreshold

@@ -38,7 +38,7 @@ public class ElectricScooter : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    
     void FixedUpdate()
     {
         currentVelocity = rb.velocity.magnitude;
@@ -59,7 +59,11 @@ public class ElectricScooter : MonoBehaviour
     void Drive()
     {
         print(currentVelocity);
-        if (currentVelocity < maxSpeed || vertical > 0)
+        if (currentVelocity > maxSpeed - 1 && vertical > 0)
+        {
+            rearCollider.motorTorque = 0;
+        }
+        else
         {
             rearCollider.motorTorque = vertical * motorPower;
         }
@@ -67,15 +71,20 @@ public class ElectricScooter : MonoBehaviour
 
     void Steer()
     {
-        steering = steeringAngle * horizontal;
+        //Steering angle should depend on current velocity
+        float ratio = Math.Abs(1 - (rb.velocity.magnitude / maxSpeed));
+        
+        steering = steeringAngle * horizontal * ratio;
         frontCollider.steerAngle = steering;
         
         
-        float slantAngle = -steering * slantFactor; // Adjust slantFactor to control the slant intensity
+        float slantAngle = -steering * slantFactor * (1 - ratio); // Adjust slantFactor to control the slant intensity
 
         // Rotate the main body around its local forward axis
         Vector3 rotation = new Vector3(slantAngle, transform.eulerAngles.y, transform.eulerAngles.z); // Rotate around the x-axis
         transform.localRotation = Quaternion.Euler(rotation);
+        
+        
     }
 
     void UpdateWheelPositions(WheelCollider wc, Transform t)
