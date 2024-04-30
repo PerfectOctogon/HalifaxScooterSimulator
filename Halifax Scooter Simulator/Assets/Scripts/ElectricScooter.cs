@@ -23,6 +23,9 @@ public class ElectricScooter : MonoBehaviour
 
     private float vertical;
 
+    private float currentVelocity;
+    public float maxSpeed = 15;
+
     public float maxTorque = 10f;
     public float rotationThreshold = 10f;
     public float slantFactor = 0.3f;
@@ -38,16 +41,13 @@ public class ElectricScooter : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        /*if (transform.eulerAngles.x > 1)
-        {
-            transform.localRotation = Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z);
-        }*/
-        //BalanceSelf();
+        currentVelocity = rb.velocity.magnitude;
         InputManager();
         Drive();
         Steer();
         UpdateWheelPositions(frontCollider, frontWheel);
         UpdateWheelPositions(rearCollider, backWheel);
+        
     }
 
     void InputManager()
@@ -58,13 +58,18 @@ public class ElectricScooter : MonoBehaviour
 
     void Drive()
     {
-        rearCollider.motorTorque = vertical * motorPower;
+        print(currentVelocity);
+        if (currentVelocity < maxSpeed || vertical > 0)
+        {
+            rearCollider.motorTorque = vertical * motorPower;
+        }
     }
 
     void Steer()
     {
         steering = steeringAngle * horizontal;
         frontCollider.steerAngle = steering;
+        
         
         float slantAngle = -steering * slantFactor; // Adjust slantFactor to control the slant intensity
 
